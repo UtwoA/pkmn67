@@ -2,7 +2,6 @@ package ru.mirea.uglovaa.pkmn.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.mirea.uglovaa.pkmn.clients.PokemonCardResponse;
 import ru.mirea.uglovaa.pkmn.clients.RestClient;
 import ru.mirea.uglovaa.pkmn.dao.CardDao;
 import ru.mirea.uglovaa.pkmn.entities.CardEntity;

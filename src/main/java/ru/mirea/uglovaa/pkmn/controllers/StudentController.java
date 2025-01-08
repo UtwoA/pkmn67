@@ -3,7 +3,6 @@ package ru.mirea.uglovaa.pkmn.controllers;
 
 import lombok.RequiredArgsConstructor;
 import ru.mirea.uglovaa.pkmn.entities.StudentEntity;
-import ru.mirea.uglovaa.pkmn.models.Student;
 import ru.mirea.uglovaa.pkmn.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -53,7 +52,7 @@ public class StudentController {
     }
 
     @GetMapping("")
-    public StudentEntity getStudentByFullName(@RequestBody StudentEntity ownerRequest) {
+    public Optional<StudentEntity> getStudentByFullName(@RequestBody StudentEntity ownerRequest) {
         return studentService.getStudentByFullName(ownerRequest.getFirstName(), ownerRequest.getSurName(), ownerRequest.getFamilyName());
     }
 }
