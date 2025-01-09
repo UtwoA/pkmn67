@@ -25,25 +25,18 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(
-                customizer -> customizer
-                        .requestMatchers(
-                                HttpMethod.GET,
-                                "/api/v1/cards/**",
-                                "/api/v1/students/**",
-                                "/api/v1/cards/card/image")
-                        //.hasAnyRole("ADMIN","USER")
-                        .permitAll()
-                        .requestMatchers(
-                                HttpMethod.POST,
-                                "/api/v1/cards",
-                                "/api/v1/students")
-                        //.hasRole("ADMIN")
-                        .permitAll()
-                        .requestMatchers("/auth/login").permitAll()
-                        .requestMatchers("/auth/register").permitAll()
-                        .requestMatchers("/auth/success").authenticated()
-                        .anyRequest().authenticated()
+                customizer ->
+                        customizer
+                                .requestMatchers(HttpMethod.GET, "/api/v1/cards").permitAll()
+                                .requestMatchers("/api/v1/cards/{name}").permitAll()
+                                .requestMatchers("/api/v1/cards/owner").permitAll()
+                                .requestMatchers( HttpMethod.POST, "/api/v1/cards").hasRole("ADMIN")
+                                .requestMatchers( HttpMethod.POST, "/api/v1/students").hasRole("ADMIN")
+                                .requestMatchers("/login").permitAll()
+                                .requestMatchers("/reg").permitAll()
+                                .anyRequest().authenticated()
         );
+
         http.formLogin(form -> form.successForwardUrl("/auth/success"));
         http.csrf(AbstractHttpConfigurer::disable);
         http.sessionManagement(session-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
